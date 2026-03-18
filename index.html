@@ -3,41 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Transferencias</title>
+    <title>Ualá México - Transferencias</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="wallet-card">
-            <p>Tu Saldo Disponible</p>
+            <p>Saldo en cuenta</p>
             <h1 id="balance-display">$500.00</h1>
         </div>
 
         <div class="transfer-form">
-            <h3>Nueva Transferencia</h3>
+            <h3>Nueva transferencia</h3>
+            <div class="input-group">
+                <label>Banco destino</label>
+                <select id="banco-destino">
+                    <option value="BBVA México">BBVA México</option>
+                    <option value="Santander">Santander</option>
+                    <option value="Banamex">Banamex</option>
+                    <option value="Banorte">Banorte</option>
+                    <option value="HSBC">HSBC</option>
+                    <option value="Banco Azteca">Banco Azteca</option>
+                    <option value="BanCoppel">BanCoppel</option>
+                    <option value="Nu México">Nu México</option>
+                    <option value="Mercado Pago">Mercado Pago</option>
+                    <option value="Otro / SPEI">Otro / SPEI</option>
+                </select>
+            </div>
             <div class="input-group">
                 <input type="text" id="destinatario" placeholder="Nombre del beneficiario">
             </div>
             <div class="input-group">
+                <input type="number" id="cuenta" placeholder="CLABE (18 dígitos) o Tarjeta">
+            </div>
+            <div class="input-group">
+                <input type="text" id="concepto" placeholder="Concepto (ej. Pago, Cena)">
+            </div>
+            <div class="input-group">
                 <input type="number" id="monto" placeholder="Monto a enviar ($)">
             </div>
-            <button onclick="intentarTransferencia()">Confirmar Envío</button>
+            <button onclick="intentarTransferencia()">Enviar transferencia</button>
         </div>
 
         <div id="status-message" class="hidden"></div>
 
-        <div id="vista-destinatario" class="receiver-box hidden">
-            <div class="receiver-header">
-                <span class="icon">🔔</span>
-                <h4>Notificación de Depósito</h4>
-            </div>
-            <div class="alert-info">
-                <p>Has recibido una transferencia de:</p>
-                <p id="emisor-nombre"><strong>Usuario Actual</strong></p>
-                <hr>
-                <p>Estado: <span class="status-badge">Saldo en buen cobro</span></p>
-                <p id="monto-recibido-texto" class="monto-grande"></p>
-                <small>El saldo se liberará tras la validación bancaria.</small>
+        <div id="modal-comprobante" class="modal hidden">
+            <div class="comprobante-uala">
+                <div class="header-uala">
+                    <div class="logo-uala">U</div>
+                    <span>Comprobante de envío</span>
+                </div>
+                
+                <div class="monto-uala">
+                    <p class="estado-envio">Enviado con éxito</p>
+                    <h2 id="comp-monto">$0.00</h2>
+                    <p class="fecha-uala" id="comp-fecha"></p>
+                </div>
+
+                <div class="detalles-uala">
+                    <div class="seccion-titulo">Datos del envío</div>
+                    <div class="item"><span>Clave de Rastreo</span><strong id="comp-rastreo" class="break-word"></strong></div>
+                    <div class="item"><span>Folio</span><strong id="comp-folio"></strong></div>
+                    <div class="item"><span>Tipo de Pago</span><strong>SPEI</strong></div>
+                    
+                    <div class="seccion-titulo">Origen</div>
+                    <div class="item"><span>Cuenta</span><strong>Ualá **** 9912</strong></div>
+
+                    <div class="seccion-titulo">Destino</div>
+                    <div class="item"><span>Beneficiario</span><strong id="comp-nombre"></strong></div>
+                    <div class="item"><span>Banco</span><strong id="comp-banco"></strong></div>
+                    <div class="item"><span>Cuenta/CLABE</span><strong id="comp-cuenta"></strong></div>
+                    <div class="item"><span>Concepto</span><strong id="comp-concepto"></strong></div>
+                </div>
+
+                <div class="pie-comprobante">
+                    <p>Estado: <strong class="tag-proceso">En buen cobro</strong></p>
+                    <p class="nota-legal">La acreditación puede tardar dependiendo del banco receptor.</p>
+                </div>
+
+                <button class="btn-cerrar" onclick="cerrarModal()">Cerrar</button>
+                <button class="btn-compartir" onclick="window.print()">Compartir / Guardar</button>
             </div>
         </div>
     </div>
