@@ -1,57 +1,51 @@
-// Saldo inicial de prueba
-let saldoDisponible = 500.00;
-
 function intentarTransferencia() {
-    const inputMonto = document.getElementById('monto');
-    const inputDestinatario = document.getElementById('destinatario');
-    const monto = parseFloat(inputMonto.value);
-    const mensajeDiv = document.getElementById('status-message');
-    const vistaDestinatario = document.getElementById('vista-destinatario');
-    const textoMontoRecibido = document.getElementById('monto-recibido-texto');
+    // Captura de datos
+    const nombre = document.getElementById('destinatario').value.trim();
+    const cuenta = document.getElementById('cuenta').value.trim();
+    const banco = document.getElementById('banco-destino').value;
+    const concepto = document.getElementById('concepto').value.trim() || "Transferencia";
+    const monto = parseFloat(document.getElementById('monto').value);
 
-    // Reiniciar estados visuales
-    mensajeDiv.className = 'hidden';
-    vistaDestinatario.classList.add('hidden');
-
-    // 1. Validaciones básicas
-    if (inputDestinatario.value.trim() === "") {
-        mostrarMensaje("Por favor, ingresa el nombre del destinatario.", "error");
+    // Validación mínima
+    if (!nombre || !cuenta || isNaN(monto)) {
+        alert("Por favor rellena los datos.");
         return;
     }
 
-    if (isNaN(monto) || monto <= 0) {
-        mostrarMensaje("Ingresa un monto válido mayor a 0.", "error");
-        return;
-    }
+    // Mostrar mensaje de proceso
+    const statusMsg = document.getElementById('status-message');
+    statusMsg.innerText = "Conectando con el Banco de México...";
+    statusMsg.className = "success";
+    statusMsg.classList.remove('hidden');
 
-    // 2. Simulación de Fondos Insuficientes
-    if (monto > saldoDisponible) {
-        mostrarMensaje("Operación Rechazada: Fondos insuficientes en la cuenta de origen.", "error");
-    } else {
-        // 3. Caso de Éxito
-        saldoDisponible -= monto;
+    setTimeout(() => {
+        // Rellenar comprobante
+        document.getElementById('comp-monto').innerText = `$${monto.toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+        document.getElementById('comp-nombre').innerText = nombre.toUpperCase();
+        document.getElementById('comp-cuenta').innerText = `****${cuenta.slice(-4)}`;
+        document.getElementById('comp-banco').innerText = banco;
+        document.getElementById('comp-concepto').innerText = concepto;
         
-        // Actualizar UI del emisor
-        document.getElementById('balance-display').innerText = `$${saldoDisponible.toFixed(2)}`;
-        mostrarMensaje("Procesando transferencia...", "success");
+        // Clave de rastreo realista (Fecha + 10 caracteres)
+        const ahora = new Date();
+        const fechaCompacta = ahora.toISOString().slice(0,10).replace(/-/g,"");
+        const idAzar = Math.random().toString(36).substring(2, 12).toUpperCase();
+        document.getElementById('comp-rastreo').innerText = `UALM${fechaCompacta}${idAzar}`;
+        
+        // Folio azar
+        document.getElementById('comp-folio').innerText = Math.floor(10000000 + Math.random() * 90000000);
+        document.getElementById('comp-fecha').innerText = ahora.toLocaleString('es-MX', { hour12: true });
 
-        // Simular tiempo de respuesta bancaria para el destinatario
-        setTimeout(() => {
-            mensajeDiv.innerText = "¡Transferencia enviada!";
-            
-            // Mostrar vista del destinatario
-            vistaDestinatario.classList.remove('hidden');
-            textoMontoRecibido.innerHTML = `$${monto.toFixed(2)}`;
-            
-            // Limpiar campos
-            inputMonto.value = "";
-            inputDestinatario.value = "";
-        }, 1200);
-    }
+        // Mostrar modal
+        document.getElementById('modal-comprobante').classList.remove('hidden');
+        statusMsg.classList.add('hidden');
+        
+        // Descontar saldo visualmente (opcional)
+        let saldoActual = 500.00;
+        document.getElementById('balance-display').innerText = `$${(saldoActual - monto).toFixed(2)}`;
+    }, 2000);
 }
 
-function mostrarMensaje(texto, tipo) {
-    const mensajeDiv = document.getElementById('status-message');
-    mensajeDiv.innerText = texto;
-    mensajeDiv.className = tipo;
+function cerrarModal() {
+    document.getElementById('modal-comprobante').classList.add('hidden');
 }
