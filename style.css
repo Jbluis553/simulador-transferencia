@@ -1,91 +1,48 @@
 body { 
-    font-family: 'Segoe UI', Roboto, sans-serif; 
-    background-color: #f0f2f5; 
-    display: flex; 
-    justify-content: center; 
-    padding: 40px 20px;
+    font-family: 'Inter', sans-serif; 
+    background-color: #f8f9fa; 
+    display: flex; justify-content: center; padding: 20px;
 }
+.container { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 380px; }
+.wallet-card { background: #ff0055; color: white; padding: 25px; border-radius: 18px; text-align: center; margin-bottom: 25px; }
+.input-group { margin-bottom: 15px; text-align: left; }
+.input-group label { font-size: 0.8rem; color: #666; margin-left: 5px; }
+input, select { width: 100%; padding: 14px; border: 1px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 1rem; outline: none; background: #fafafa;}
+button { width: 100%; padding: 15px; background: #ff0055; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 1rem; }
 
-.container { 
-    background: white; 
-    padding: 25px; 
-    border-radius: 20px; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-    width: 100%;
-    max-width: 380px; 
-}
+/* Modal Comprobante */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 10px; box-sizing: border-box;}
+.comprobante-uala { background: #121212; color: white; width: 100%; max-width: 350px; padding: 25px; border-radius: 24px; text-align: center; }
+.header-uala { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-weight: bold; }
+.logo-uala { background: #ff0055; color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
 
-.wallet-card { 
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
-    color: white; 
-    padding: 25px; 
-    border-radius: 15px; 
-    margin-bottom: 25px; 
-    text-align: center; 
-}
+.monto-uala h2 { font-size: 2.8rem; margin: 10px 0; font-weight: 700; }
+.estado-envio { color: #00ffa3; font-weight: bold; margin-bottom: 0;}
+.fecha-uala { color: #777; font-size: 0.85rem; }
 
-.input-group { margin-bottom: 12px; }
+.detalles-uala { text-align: left; margin-top: 25px; border-top: 1px solid #222; }
+.seccion-titulo { font-size: 0.7rem; color: #ff0055; text-transform: uppercase; font-weight: 800; margin: 15px 0 10px 0; letter-spacing: 1px;}
+.item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.85rem; }
+.item span { color: #666; }
+.item strong { color: #ddd; text-align: right; }
+.break-word { word-break: break-all; max-width: 160px; font-size: 0.75rem; }
 
-input { 
-    width: 100%; 
-    padding: 14px; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    box-sizing: border-box; 
-    font-size: 1rem;
-}
+.tag-proceso { color: #f1c40f; }
+.nota-legal { font-size: 0.7rem; color: #444; margin-top: 10px; line-height: 1.2; }
+.pie-comprobante { border-top: 1px solid #222; padding-top: 15px; margin-top: 15px; }
 
-button { 
-    width: 100%; 
-    padding: 15px; 
-    background: #007bff; 
-    color: white; 
-    border: none; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    font-weight: bold; 
-    font-size: 1rem;
-    transition: background 0.3s;
-}
+.btn-cerrar { background: #222; color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; margin-top: 15px; font-weight: bold; cursor: pointer; }
+.btn-compartir { background: #ff0055; color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; margin-top: 10px; font-weight: bold; cursor: pointer; }
 
-button:hover { background: #0056b3; }
-
-#status-message {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.error { background: #fee2e2; color: #dc2626; border: 1px solid #f87171; }
-.success { background: #dcfce7; color: #166534; border: 1px solid #4ade80; }
-
-.receiver-box {
-    margin-top: 25px;
-    padding: 15px;
-    background-color: #f8fafc;
-    border: 1px dashed #3498db;
-    border-radius: 12px;
-    animation: fadeIn 0.5s ease;
-}
-
-.receiver-header { display: flex; align-items: center; margin-bottom: 10px; }
-.receiver-header h4 { margin: 0 0 0 10px; color: #3498db; }
-
-.status-badge {
-    background-color: #fef9c3;
-    color: #854d0e;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 0.75rem;
-}
-
-.monto-grande { font-size: 1.4rem; font-weight: bold; color: #1e293b; margin: 10px 0; }
 .hidden { display: none; }
+#status-message { margin: 15px 0; padding: 10px; border-radius: 10px; font-size: 0.9rem; text-align: center;}
+.success { background: #e6fffa; color: #2c7a7b; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+@media print {
+    body * { visibility: hidden; }
+    .modal, .modal * { visibility: visible; }
+    .modal { background: white !important; }
+    .comprobante-uala { background: white !important; color: black !important; border: 1px solid #eee; }
+    .detalles-uala strong { color: black !important; }
+    .btn-cerrar, .btn-compartir { display: none; }
 }
