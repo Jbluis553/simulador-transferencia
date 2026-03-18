@@ -3,24 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banca Digital - Simulación</title>
+    <title>Simulador de Transferencias</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="wallet-card">
-            <p>Saldo Disponible</p>
+            <p>Tu Saldo Disponible</p>
             <h1 id="balance-display">$500.00</h1>
         </div>
 
         <div class="transfer-form">
             <h3>Nueva Transferencia</h3>
-            <input type="text" id="destinatario" placeholder="Nombre del destinatario">
-            <input type="number" id="monto" placeholder="Monto a enviar ($)">
-            <button onclick="intentarTransferencia()">Enviar Dinero</button>
+            <div class="input-group">
+                <input type="text" id="destinatario" placeholder="Nombre del beneficiario">
+            </div>
+            <div class="input-group">
+                <input type="number" id="monto" placeholder="Monto a enviar ($)">
+            </div>
+            <button onclick="intentarTransferencia()">Confirmar Envío</button>
         </div>
 
         <div id="status-message" class="hidden"></div>
+
+        <div id="vista-destinatario" class="receiver-box hidden">
+            <div class="receiver-header">
+                <span class="icon">🔔</span>
+                <h4>Notificación de Depósito</h4>
+            </div>
+            <div class="alert-info">
+                <p>Has recibido una transferencia de:</p>
+                <p id="emisor-nombre"><strong>Usuario Actual</strong></p>
+                <hr>
+                <p>Estado: <span class="status-badge">Saldo en buen cobro</span></p>
+                <p id="monto-recibido-texto" class="monto-grande"></p>
+                <small>El saldo se liberará tras la validación bancaria.</small>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
