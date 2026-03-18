@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banca Digital - Simulación</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="wallet-card">
+            <p>Saldo Disponible</p>
+            <h1 id="balance-display">$500.00</h1>
+        </div>
+
+        <div class="transfer-form">
+            <h3>Nueva Transferencia</h3>
+            <input type="text" id="destinatario" placeholder="Nombre del destinatario">
+            <input type="number" id="monto" placeholder="Monto a enviar ($)">
+            <button onclick="intentarTransferencia()">Enviar Dinero</button>
+        </div>
+
+        <div id="status-message" class="hidden"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
